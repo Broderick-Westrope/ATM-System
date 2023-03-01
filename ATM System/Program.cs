@@ -40,7 +40,7 @@ public class Program
             }
             catch (Exception e)
             {
-                Console.WriteLine(e + " Try again.");
+                Console.WriteLine($"{e} Try again.");
                 // throw; 
                 continue;
             }
@@ -56,7 +56,7 @@ public class Program
         int cardNum;
         while (true)
         {
-            Console.Write("Enter your " + cardNumLength + " digit card number: ");
+            Console.Write($"Enter your {cardNumLength} digit card number: ");
             var input = Console.ReadLine();
             try
             {
@@ -67,14 +67,14 @@ public class Program
                 
                 if (input.Length != cardNumLength)
                 {
-                    throw new Exception("Card number was not " + cardNumLength + " digits long.");
+                    throw new Exception($"Card number was not {cardNumLength} digits long.");
                 }
 
                 cardNum = Parse(input);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e + " Try again.");
+                Console.WriteLine($"{e} Try again.");
                 // throw; 
                 continue;
             }
@@ -91,7 +91,7 @@ public class Program
         int pin;
         while (true)
         {
-            Console.Write("Enter your " + pinLength + " digit pin: ");
+            Console.Write($"Enter your {pinLength} digit pin: ");
             var input = Console.ReadLine();
             try
             {
@@ -102,14 +102,14 @@ public class Program
                 
                 if (input.Length != pinLength)
                 {
-                    throw new Exception("Pin was not " + pinLength + " digits long.");
+                    throw new Exception($"Pin was not {pinLength} digits long.");
                 }
                 
                 pin = Parse(input);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e + " Try again.");
+                Console.WriteLine($"{e} Try again.");
                 // throw; 
                 continue;
             }
