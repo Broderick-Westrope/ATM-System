@@ -41,7 +41,6 @@ public class Program
             catch (Exception e)
             {
                 Console.WriteLine($"{e} Try again.");
-                // throw; 
                 continue;
             }
 
@@ -75,7 +74,6 @@ public class Program
             catch (Exception e)
             {
                 Console.WriteLine($"{e} Try again.");
-                // throw; 
                 continue;
             }
 
@@ -110,7 +108,6 @@ public class Program
             catch (Exception e)
             {
                 Console.WriteLine($"{e} Try again.");
-                // throw; 
                 continue;
             }
 
