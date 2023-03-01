@@ -1,14 +1,14 @@
 ﻿using System.Diagnostics;
 using static System.Int32;
 
-namespace ATM_System;
+namespace ATMSystem;
 
-public class Program
+public abstract class Program
 {
     private static int pinLength = 4;
     private static int cardNumLength = 6;
-    
-    static void Main()
+
+    private static void Main()
     {
         var accountManager = new AccountManager();
 
@@ -16,15 +16,20 @@ public class Program
         var input = Console.ReadLine();
         if (input == "Y" || input == "y")
         {
-            accountManager.CreateAccount(GetName(), GetPin());
+            var result = accountManager.CreateAccount(GetName(), GetPin());
+            //TODO: check that the returned string was not null or empty
+            Console.WriteLine(result);
         }
         else
         {
-            accountManager.Login(GetCardNumber(), GetPin());
+            if (!accountManager.Login(GetCardNumber(), GetPin()))
+            {  
+                throw new Exception("Unable to log-in using the provided credentials.");
+            }
         }
     }
 
-    static string GetName()
+    private static string GetName()
     {
         string name;
         while (true)
@@ -50,7 +55,7 @@ public class Program
         return name;
     }
 
-    static int GetCardNumber()
+    private static int GetCardNumber()
     {
         int cardNum;
         while (true)
@@ -84,7 +89,7 @@ public class Program
 
     }
 
-    static int GetPin()
+    private static int GetPin()
     {
         int pin;
         while (true)
