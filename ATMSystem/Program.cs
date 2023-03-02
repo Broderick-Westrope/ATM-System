@@ -3,10 +3,10 @@ using static System.Int32;
 
 namespace ATMSystem;
 
-public abstract class Program
+public abstract class Program 
 {
-    private static int pinLength = 4;
-    private static int cardNumLength = 6;
+    private const int PinLength = 4;
+    private const int CardNumLength = 6;
 
     private static void Main()
     {
@@ -60,7 +60,7 @@ public abstract class Program
         int cardNum;
         while (true)
         {
-            Console.Write($"Enter your {cardNumLength} digit card number: ");
+            Console.Write($"Enter your {CardNumLength} digit card number: ");
             var input = Console.ReadLine();
             try
             {
@@ -69,9 +69,9 @@ public abstract class Program
                     throw new Exception("Card number was empty or null.");
                 }
                 
-                if (input.Length != cardNumLength)
+                if (input.Length != CardNumLength)
                 {
-                    throw new Exception($"Card number was not {cardNumLength} digits long.");
+                    throw new Exception($"Card number was not {CardNumLength} digits long.");
                 }
 
                 cardNum = Parse(input);
@@ -94,7 +94,7 @@ public abstract class Program
         int pin;
         while (true)
         {
-            Console.Write($"Enter your {pinLength} digit pin: ");
+            Console.Write($"Enter your {PinLength} digit pin: ");
             var input = Console.ReadLine();
             try
             {
@@ -103,9 +103,9 @@ public abstract class Program
                     throw new Exception("Pin was empty or null.");
                 }
                 
-                if (input.Length != pinLength)
+                if (input.Length != PinLength)
                 {
-                    throw new Exception($"Pin was not {pinLength} digits long.");
+                    throw new Exception($"Pin was not {PinLength} digits long.");
                 }
                 
                 pin = Parse(input);

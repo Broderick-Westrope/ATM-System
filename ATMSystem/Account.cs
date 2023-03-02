@@ -36,8 +36,7 @@ public class Account : IEquatable<Account>
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((Account)obj);
+        return obj.GetType() == GetType() && Equals((Account)obj);
     }
 
     public override int GetHashCode()
