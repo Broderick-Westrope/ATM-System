@@ -3,7 +3,7 @@ namespace ATMSystem;
 public interface IAccountRepository
 {
     List<Account> GetAll();
-    Account Get(Guid id);
+    Account Get(int cardNumber);
     void Add(Account account);
-    void Delete(Guid id);
+    void Delete(int cardNumber);
 }

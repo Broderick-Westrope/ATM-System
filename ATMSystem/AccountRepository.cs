@@ -14,9 +14,10 @@ public class AccountRepository : IAccountRepository
         return _accounts;
     }
 
-    public Account Get(Guid id)
+    public Account Get(int cardNumber)
     {
-        throw new NotImplementedException();
+        //? What is the best approach to dealing with this null value?
+        return _accounts.Find(x => x.CompareCardNumber(cardNumber));
     }
 
     public void Add(Account account)
@@ -24,8 +25,9 @@ public class AccountRepository : IAccountRepository
         _accounts.Add(account);
     }
 
-    public void Delete(Guid id)
+    public void Delete(int cardNumber)
     {
-        throw new NotImplementedException();
+        //? Is there a better list method for removing an object that matches a predicate? The same null value question as Get().
+        _accounts.Remove(_accounts.Find(x => x.CompareCardNumber(cardNumber)));
     }
 }
