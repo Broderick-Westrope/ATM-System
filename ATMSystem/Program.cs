@@ -3,7 +3,7 @@ using static System.Int32;
 
 namespace ATMSystem;
 
-public abstract class Program 
+public abstract class Program
 {
     private const int PinLength = 4;
     private const int CardNumLength = 6;
@@ -11,22 +11,32 @@ public abstract class Program
     private static void Main()
     {
         var accountManager = new AccountManager();
+        int cardNumber;
 
-        Console.WriteLine("Are you a returning user? [y/N]");
+        Console.WriteLine("Are you a new user? [y/N]");
         var input = Console.ReadLine();
-        if (input == "Y" || input == "y")
+        
+        if (input is "Y" or "y")
         {
-            var result = accountManager.CreateAccount(GetName(), GetPin());
-            //TODO: check that the returned string was not null or empty
-            Console.WriteLine(result);
+            cardNumber = GetCardNumber();
+            if (!accountManager.Login(cardNumber, GetPin()))
+            {
+                throw new Exception("Failed to log-in using the provided credentials.");
+            }
+            Console.WriteLine("Login successful.");
         }
         else
         {
-            if (!accountManager.Login(GetCardNumber(), GetPin()))
-            {  
-                throw new Exception("Unable to log-in using the provided credentials.");
+            var name = GetName();
+            cardNumber = accountManager.CreateAccount(name, GetPin());
+            if (cardNumber is < 100000 or > 999999)
+            {
+                throw new Exception("The generated card number was not a six digit integer.");
             }
+            Console.WriteLine($"Account created with the following credentials:\n\tName: {name}\n\tCard Number: {cardNumber}\n");
         }
+        
+        Console.WriteLine("Would you like to:\n\t[W]ithdraw\n\t[D]eposit\n\t[C]heck Balance\n\t[T]ransfer\n\t[L]og Out\n\t[Q]uit");
     }
 
     private static string GetName()
@@ -68,7 +78,7 @@ public abstract class Program
                 {
                     throw new Exception("Card number was empty or null.");
                 }
-                
+
                 if (input.Length != CardNumLength)
                 {
                     throw new Exception($"Card number was not {CardNumLength} digits long.");
@@ -86,7 +96,6 @@ public abstract class Program
         }
 
         return cardNum;
-
     }
 
     private static int GetPin()
@@ -102,12 +111,12 @@ public abstract class Program
                 {
                     throw new Exception("Pin was empty or null.");
                 }
-                
+
                 if (input.Length != PinLength)
                 {
                     throw new Exception($"Pin was not {PinLength} digits long.");
                 }
-                
+
                 pin = Parse(input);
             }
             catch (Exception e)
