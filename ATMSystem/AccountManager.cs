@@ -24,9 +24,8 @@ public class AccountManager
 
     internal bool Login(int cardNumber, int pin)
     {
-        //TODO check login details against database
-
-        return true;
+        var account = repo.Get(cardNumber);
+        return account != null && account.ComparePin(pin);
     }
 
     private static int GenerateCardNumber()
