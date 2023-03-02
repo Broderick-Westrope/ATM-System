@@ -38,13 +38,14 @@ public class AccountRepositoryShould
             new(333333, "Gary", 3333)
         };
         var repository = new AccountRepository(accountList);
+        var expectedAccount = new Account(222222, "Ben", 2222);
         
         // Act
         var account = repository.Get(222222);
         
         // Assert
         //? Since the first check uses the objects equality, is this just checking they are both Accounts? Should we instead use the second check?
-        account.Should().Be(targetAccount);
+        account.Should().Be(expectedAccount);
         account.CompareCardNumber(222222).Should().BeTrue();
         account.Should().NotBe(null);
     }
