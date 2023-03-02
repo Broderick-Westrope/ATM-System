@@ -5,21 +5,20 @@ public class AccountManager
     private AccountRepository repo;
 
     //? Is it right to put this declaration in this scope? Is there any way to limit access to only the repo?
-    private List<Account> accounts = new();
+    private List<Account> _accounts = new();
 
 
     public AccountManager()
     {
-        repo = new AccountRepository(accounts);
+        repo = new AccountRepository(_accounts);
     }
 
-    internal string CreateAccount(string name, int pin)
+    internal int CreateAccount(string name, int pin)
     {
         var cardNumber = GenerateCardNumber();
         repo.Add(new Account(cardNumber, name, pin));
 
-        return
-            $"Your account has been created with the following credentials.\nName: {name}\nCard Number: {cardNumber}\nPin: {pin}";
+        return cardNumber;
     }
 
     internal bool Login(int cardNumber, int pin)
