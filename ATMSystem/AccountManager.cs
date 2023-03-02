@@ -2,12 +2,21 @@ namespace ATMSystem;
 
 public class AccountManager
 {
+    private AccountRepository repo;
+
+    //? Is it right to put this declaration in this scope? Is there any way to limit access to only the repo?
+    private List<Account> accounts = new();
+
+
+    public AccountManager()
+    {
+        repo = new AccountRepository(accounts);
+    }
+
     internal string CreateAccount(string name, int pin)
     {
         var cardNumber = GenerateCardNumber();
-
-        //TODO: Add new account details to database
-        
+        repo.Add(new Account(cardNumber, name, pin));
 
         return
             $"Your account has been created with the following credentials.\nName: {name}\nCard Number: {cardNumber}\nPin: {pin}";
