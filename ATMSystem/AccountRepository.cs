@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace ATMSystem;
 
 public class AccountRepository : IAccountRepository
@@ -14,7 +16,7 @@ public class AccountRepository : IAccountRepository
         return _accounts;
     }
 
-    public Account Get(int cardNumber)
+    public Account? Get(int cardNumber)
     {
         //? What is the best approach to dealing with this null value?
         return _accounts.Find(x => x.CompareCardNumber(cardNumber));
@@ -29,5 +31,11 @@ public class AccountRepository : IAccountRepository
     {
         //? Is there a better list method for removing an object that matches a predicate? The same null value question as Get().
         _accounts.Remove(_accounts.Find(x => x.CompareCardNumber(cardNumber)));
+    }
+
+    //? Thoughts on this predicate function? Wanted to give it a shot and see where i could improve.
+    public Account? Find(Predicate<Account> predicate)
+    {
+        return _accounts.Find(predicate);
     }
 }
