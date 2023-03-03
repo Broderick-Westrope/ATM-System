@@ -1,81 +1,68 @@
-using ATMSystem;
+using AutoFixture.Xunit2;
 using FluentAssertions;
 
 namespace ATMSystem.UnitTests;
 
 public class AccountRepositoryShould
 {
-    [Fact]
-    public void GetAllAccounts()
+    [Theory]
+    [AutoData]
+    public void GetAllAccounts(List<Account> accounts)
     {
         // Arrange
-        var accountList = new List<Account>
-        {
-            //? Is it better to add the items this way or add them using the repository method? Should the number of entries be randomised?
-            new(111111, "Bob", 1111),
-            new(222222, "Ben", 2222),
-            new(333333, "Gary", 3333)
-        };
-        var repository = new AccountRepository(accountList);
+        var repository = new AccountRepository(accounts);
 
         // Act
         var result = repository.GetAll();
-        
+
         // Assert
-        accountList.Should().Equal(result);
+        result.Should().BeEquivalentTo(accounts);
     }
-    
-    [Fact]
-    public void GetAccount()
+
+    [Theory]
+    [AutoData]
+    public void GetAccount(List<Account> accounts)
     {
         // Arrange
-        var targetAccount = new Account(222222, "Ben", 2222);
-        var accountList = new List<Account>
-        {
-            //? Is it better to add the items this way or add them using the repository method? Should the number of entries be randomised?
-            new(111111, "Bob", 1111),
-            targetAccount,
-            new(333333, "Gary", 3333)
-        };
-        var repository = new AccountRepository(accountList);
-        
+        var targetAccount = accounts[0];
+        var repository = new AccountRepository(accounts);
+
         // Act
-        var account = repository.Get(222222);
-        
+        var result = repository.Get(targetAccount.CardNumber);
+
         // Assert
-        //? Worth checking for null despite doing an object comparison?
-        account.Should().Be(targetAccount);
-        account.Should().NotBe(null);
+        result.Should().NotBeNull();
+        result.Should().Be(targetAccount);
     }
-    [Fact]
-    public void AddAccount()
+
+    [Theory]
+    [AutoData]
+    public void AddAccount(Account account)
     {
         // Arrange
         var accountList = new List<Account>();
         var repository = new AccountRepository(accountList);
-        var account = new Account(111111, "Bob", 1111);
-        
+
         // Act
         repository.Add(account);
-        
-        // Assert
-        accountList.Should().HaveCount(1);
-    }
-    
-    [Fact]
-    public void DeleteAccount()
-    {
-        // Arrange
-        var accountList = new List<Account>
-        {
-            new(111111, "Bob", 1111)
-        };
-        var repository = new AccountRepository(accountList);
-        
-        // Act
-        repository.Delete(111111);
 
         // Assert
-        accountList.Should().BeEmpty();
+        accountList.Should().HaveCount(1);
+        accountList.First().Should().Be(account);
+    }
+
+    [Theory]
+    [AutoData]
+    public void DeleteAccount(List<Account> accounts)
+    {
+        // Arrange
+        var account = accounts[0];
+        var repository = new AccountRepository(accounts);
+
+        // Act
+        repository.Delete(account.CardNumber);
+
+        // Assert
+        accounts.Should().NotContain(account);
     }
 }

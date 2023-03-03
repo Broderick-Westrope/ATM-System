@@ -2,11 +2,11 @@ namespace ATMSystem;
 
 public class Account : IEquatable<Account>
 {
-    private int CardNumber { get; }
+    public int CardNumber { get; }
 
-    private string Name { get; }
+    public string Name { get; }
 
-    private int Pin { get; }
+    public int Pin { get; }
 
     public Account(int cardNumber, string name, int pin)
     {
