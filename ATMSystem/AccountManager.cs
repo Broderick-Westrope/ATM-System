@@ -9,18 +9,20 @@ public class AccountManager
         _repo = repo;
     }
 
-    internal int CreateAccount(string name, int pin)
+    internal Account CreateAccount(string name, int pin)
     {
-        var cardNumber = GenerateCardNumber();
-        _repo.Add(new Account(cardNumber, name, pin));
+        var account = new Account(GenerateCardNumber(), name, pin);
+        _repo.Add(account);
 
-        return cardNumber;
+        return account;
     }
 
-    internal bool Login(int cardNumber, int pin)
+    internal Account? Login(int cardNumber, int pin)
     {
         var account = _repo.Get(cardNumber);
-        return account != null && account.ComparePin(pin);
+        if (account == null || !account.ComparePin(pin))
+            return null;
+        return account;
     }
 
     private static int GenerateCardNumber()

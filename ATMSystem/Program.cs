@@ -13,29 +13,28 @@ public abstract class Program
         var accountList = new List<Account>();
         var repo = new AccountRepository(accountList);
         var accountManager = new AccountManager(repo);
-        int cardNumber;
+        Account? account;
 
         Console.WriteLine("Are you a new user? [y/N]");
         var input = Console.ReadLine();
         
         if (input is "Y" or "y")
         {
-            cardNumber = GetCardNumber();
-            if (!accountManager.Login(cardNumber, GetPin()))
+            account = accountManager.Login(GetCardNumber(), GetPin());
+            if (account == null)
             {
                 throw new Exception("Failed to log-in using the provided credentials.");
             }
-            Console.WriteLine("Login successful.");
+            Console.WriteLine($"Successfully logged into the account with the following credentials:\n\tName: {account.Name}\n\tCard Number: {account.CardNumber}\n");
         }
         else
         {
-            var name = GetName();
-            cardNumber = accountManager.CreateAccount(name, GetPin());
-            if (cardNumber is < 100000 or > 999999)
+            account = accountManager.CreateAccount(GetName(), GetPin());
+            if (account.CardNumber is < 100000 or > 999999)
             {
                 throw new Exception("The generated card number was not a six digit integer.");
             }
-            Console.WriteLine($"Account created with the following credentials:\n\tName: {name}\n\tCard Number: {cardNumber}\n");
+            Console.WriteLine($"Account created with the following credentials:\n\tName: {account.Name}\n\tCard Number: {account.CardNumber}\n");
         }
         
         Console.WriteLine("Would you like to:\n\t[W]ithdraw\n\t[D]eposit\n\t[C]heck Balance\n\t[T]ransfer\n\t[L]og Out\n\t[Q]uit");
