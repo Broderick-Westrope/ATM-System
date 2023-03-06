@@ -15,7 +15,7 @@ public abstract class Program
         var accountManager = new AccountManager(repo);
         Account? account;
 
-        Console.WriteLine("Are you a new user? [y/N]");
+        Console.WriteLine("Are you a returning user? [y/N]");
         var input = Console.ReadLine();
         
         if (input is "Y" or "y")
@@ -37,7 +37,17 @@ public abstract class Program
             Console.WriteLine($"Account created with the following credentials:\n\tName: {account.Name}\n\tCard Number: {account.CardNumber}\n");
         }
         
-        Console.WriteLine("Would you like to:\n\t[W]ithdraw\n\t[D]eposit\n\t[C]heck Balance\n\t[T]ransfer\n\t[L]og Out\n\t[Q]uit");
+        Console.WriteLine("Would you like to:\n\t[C]hange Pin\n\t[W]ithdraw\n\t[D]eposit\n\t[V]iew Balance\n\t[T]ransfer\n\t[L]og Out\n\t[Q]uit\n");
+        input = Console.ReadLine();
+        if (input is "C" or "c")
+        {
+            Console.WriteLine("Changing Pin:");
+            accountManager.ChangePin(account, GetPin());
+        }
+        else
+        {
+            throw new Exception("Unimplemented Functionality.");
+        }
     }
 
     private static string GetName()

@@ -31,4 +31,11 @@ public class AccountManager
         var cardNum = rand.Next(100000, 999999);
         return cardNum;
     }
+
+    internal void ChangePin(Account oldAccount, int pin)
+    {
+        var newAccount = oldAccount with { Pin = pin };
+        _repo.Delete(oldAccount.CardNumber);
+        _repo.Add(newAccount);
+    }
 }
