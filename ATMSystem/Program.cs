@@ -10,7 +10,9 @@ public abstract class Program
 
     private static void Main()
     {
-        var accountManager = new AccountManager();
+        var accountList = new List<Account>();
+        var repo = new AccountRepository(accountList);
+        var accountManager = new AccountManager(repo);
         int cardNumber;
 
         Console.WriteLine("Are you a new user? [y/N]");
