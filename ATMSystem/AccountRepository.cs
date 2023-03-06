@@ -26,13 +26,9 @@ public class AccountRepository : IAccountRepository
         _accounts.Add(account);
     }
 
-    public void Delete(int cardNumber)
+    public void Delete(Account account)
     {
-        var account = _accounts.Find(x => x.CardNumber == cardNumber);
-        if (account is not null)
-        {
-            _accounts.Remove(account);
-        }
+        _accounts.Remove(account);
     }
 
     public Account? Find(Predicate<Account> predicate)

@@ -35,7 +35,7 @@ public class AccountManager
     internal void ChangePin(Account oldAccount, int pin)
     {
         var newAccount = oldAccount with { Pin = pin };
-        _repo.Delete(oldAccount.CardNumber);
+        _repo.Delete(oldAccount);
         _repo.Add(newAccount);
     }
 }

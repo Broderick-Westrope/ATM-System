@@ -60,7 +60,7 @@ public class AccountRepositoryShould
         var repository = new AccountRepository(accounts);
 
         // Act
-        repository.Delete(account.CardNumber);
+        repository.Delete(account);
 
         // Assert
         accounts.Should().NotContain(account);
