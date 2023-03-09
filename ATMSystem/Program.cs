@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using ATMSystem.Handlers.CreateAccount;
+using ATMSystem.Repositories;
 using static System.Int32;
 
 namespace ATMSystem;
@@ -13,6 +15,7 @@ public abstract class Program
         var accountList = new List<Account>();
         var repo = new AccountRepository(accountList);
         var accountManager = new AccountManager(repo);
+        var createAccountHandler = new CreateAccountHandler(repo);
         Account? account;
 
         Console.WriteLine("Are you a returning user? [y/N]");
@@ -20,7 +23,7 @@ public abstract class Program
         
         if (input is "Y" or "y")
         {
-            account = accountManager.Login(GetCardNumber(), GetPin());
+            account = accountManager.Login(ReadCardNumber(), ReadPin());
             if (account == null)
             {
                 throw new Exception("Failed to log-in using the provided credentials.");
@@ -29,11 +32,7 @@ public abstract class Program
         }
         else
         {
-            account = accountManager.CreateAccount(GetName(), GetPin());
-            if (account.CardNumber is < 100000 or > 999999)
-            {
-                throw new Exception("The generated card number was not a six digit integer.");
-            }
+            account = createAccountHandler.Handle(new CreateAccount(ReadName(), ReadPin()));
             Console.WriteLine($"Account created with the following credentials:\n\tName: {account.Name}\n\tCard Number: {account.CardNumber}\n");
         }
         
@@ -42,7 +41,7 @@ public abstract class Program
         if (input is "C" or "c")
         {
             Console.WriteLine("Changing Pin:");
-            accountManager.ChangePin(account, GetPin());
+            accountManager.ChangePin(account, ReadPin());
         }
         else
         {
@@ -50,7 +49,7 @@ public abstract class Program
         }
     }
 
-    private static string GetName()
+    private static string ReadName()
     {
         string name;
         while (true)
@@ -76,7 +75,7 @@ public abstract class Program
         return name;
     }
 
-    private static int GetCardNumber()
+    private static int ReadCardNumber()
     {
         int cardNum;
         while (true)
@@ -109,7 +108,7 @@ public abstract class Program
         return cardNum;
     }
 
-    private static int GetPin()
+    private static int ReadPin()
     {
         int pin;
         while (true)

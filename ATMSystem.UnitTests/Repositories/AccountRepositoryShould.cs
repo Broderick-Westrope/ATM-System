@@ -1,7 +1,8 @@
+using ATMSystem.Repositories;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 
-namespace ATMSystem.UnitTests;
+namespace ATMSystem.UnitTests.Repositories;
 
 public class AccountRepositoryShould
 {

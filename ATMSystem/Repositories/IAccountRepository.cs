@@ -1,6 +1,4 @@
-using System.Linq.Expressions;
-
-namespace ATMSystem;
+namespace ATMSystem.Repositories;
 
 public interface IAccountRepository
 {

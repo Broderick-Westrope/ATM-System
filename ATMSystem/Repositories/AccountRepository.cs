@@ -1,6 +1,4 @@
-using System.Linq.Expressions;
-
-namespace ATMSystem;
+namespace ATMSystem.Repositories;
 
 public class AccountRepository : IAccountRepository
 {
@@ -18,7 +16,7 @@ public class AccountRepository : IAccountRepository
 
     public Account? Get(int cardNumber)
     {
-        return _accounts.Find(x => x.CompareCardNumber(cardNumber));
+        return _accounts.Find(x => x.CardNumber == cardNumber);
     }
 
     public void Add(Account account)
