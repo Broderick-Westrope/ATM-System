@@ -20,15 +20,11 @@ public abstract class Program
 
         Console.WriteLine("Are you a returning user? [y/N]");
         var input = Console.ReadLine();
-        
+
         if (input is "Y" or "y")
         {
-            account = accountManager.Login(ReadCardNumber(), ReadPin());
-            if (account == null)
-            {
-                throw new Exception("Failed to log-in using the provided credentials.");
-            }
-            Console.WriteLine($"Successfully logged into the account with the following credentials:\n\tName: {account.Name}\n\tCard Number: {account.CardNumber}\n");
+            // TODO: write tests for login
+            account = Login(accountManager);
         }
         else
         {
@@ -51,6 +47,9 @@ public abstract class Program
 	[Q]uit
 ");
         input = Console.ReadLine();
+
+        // TODO: add other use cases here
+
         if (input is "C" or "c")
         {
             Console.WriteLine("Changing Pin:");
@@ -60,6 +59,22 @@ public abstract class Program
         {
             throw new Exception("Unimplemented Functionality.");
         }
+    }
+
+    private static Account Login(AccountManager accountManager)
+    {
+        var account = accountManager.Login(ReadCardNumber(), ReadPin());
+        if (account == null)
+        {
+            throw new Exception("Failed to log-in using the provided credentials.");
+        }
+
+        Console.WriteLine(
+            $@"Successfully logged into the account with the following credentials:
+	Name: {account.Name}
+	Card Number: {account.CardNumber}
+");
+        return account;
     }
 
     private static string ReadName()
