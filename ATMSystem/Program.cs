@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using ATMSystem.Handlers.CreateAccount;
+﻿using ATMSystem.Handlers.CreateAccount;
 using ATMSystem.Repositories;
 using static System.Int32;
 
@@ -64,10 +63,7 @@ public abstract class Program
     private static Account Login(AccountManager accountManager)
     {
         var account = accountManager.Login(ReadCardNumber(), ReadPin());
-        if (account == null)
-        {
-            throw new Exception("Failed to log-in using the provided credentials.");
-        }
+        if (account == null) throw new Exception("Failed to log-in using the provided credentials.");
 
         Console.WriteLine(
             $@"Successfully logged into the account with the following credentials:
@@ -86,10 +82,7 @@ public abstract class Program
             name = Console.ReadLine()!;
             try
             {
-                if (string.IsNullOrEmpty(name))
-                {
-                    throw new Exception("Pin was empty or null.");
-                }
+                if (string.IsNullOrEmpty(name)) throw new Exception("Pin was empty or null.");
             }
             catch (Exception e)
             {
@@ -112,15 +105,10 @@ public abstract class Program
             var input = Console.ReadLine();
             try
             {
-                if (string.IsNullOrEmpty(input))
-                {
-                    throw new Exception("Card number was empty or null.");
-                }
+                if (string.IsNullOrEmpty(input)) throw new Exception("Card number was empty or null.");
 
                 if (input.Length != CardNumLength)
-                {
                     throw new Exception($"Card number was not {CardNumLength} digits long.");
-                }
 
                 cardNum = Parse(input);
             }
@@ -145,15 +133,9 @@ public abstract class Program
             var input = Console.ReadLine();
             try
             {
-                if (string.IsNullOrEmpty(input))
-                {
-                    throw new Exception("Pin was empty or null.");
-                }
+                if (string.IsNullOrEmpty(input)) throw new Exception("Pin was empty or null.");
 
-                if (input.Length != PinLength)
-                {
-                    throw new Exception($"Pin was not {PinLength} digits long.");
-                }
+                if (input.Length != PinLength) throw new Exception($"Pin was not {PinLength} digits long.");
 
                 pin = Parse(input);
             }

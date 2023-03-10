@@ -1,7 +1,6 @@
 using ATMSystem.Handlers.CreateAccount;
 using ATMSystem.Repositories;
 using AutoFixture;
-using AutoFixture.Xunit2;
 using FluentAssertions;
 using Moq;
 
@@ -58,7 +57,7 @@ public class CreateAccountHandlerShould
             .Create();
         var mockRepository = new Mock<IAccountRepository>();
         var handler = new CreateAccountHandler(mockRepository.Object);
-        
+
         // Act
         Action act = () => handler.Handle(command);
 
@@ -67,7 +66,7 @@ public class CreateAccountHandlerShould
             .Throw<ArgumentException>()
             .WithMessage("Pin is incorrect.");
     }
-    
+
     [Fact]
     public void VerifyPinIsTooSmall()
     {
@@ -78,7 +77,7 @@ public class CreateAccountHandlerShould
             .Create();
         var mockRepository = new Mock<IAccountRepository>();
         var handler = new CreateAccountHandler(mockRepository.Object);
-        
+
         // Act
         Action act = () => handler.Handle(command);
 
