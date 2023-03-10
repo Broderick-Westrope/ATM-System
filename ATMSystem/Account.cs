@@ -1,3 +1,3 @@
 namespace ATMSystem;
 
-public record Account(int CardNumber, string Name, int Pin);
+public record Account(int AccountNumber, string Name, int Pin);

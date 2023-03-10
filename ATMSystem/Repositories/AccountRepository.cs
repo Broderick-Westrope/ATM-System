@@ -14,9 +14,9 @@ public class AccountRepository : IAccountRepository
         return _accounts;
     }
 
-    public Account? Get(int cardNumber)
+    public Account? Get(int accountNumber)
     {
-        return _accounts.Find(x => x.CardNumber == cardNumber);
+        return _accounts.Find(x => x.AccountNumber == accountNumber);
     }
 
     public void Add(Account account)

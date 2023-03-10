@@ -7,7 +7,7 @@ namespace ATMSystem;
 public abstract class Program
 {
     private const int PinLength = 4;
-    private const int CardNumLength = 6;
+    private const int AccountNumLength = 6;
 
     private static void Main()
     {
@@ -31,7 +31,7 @@ public abstract class Program
             Console.WriteLine(
                 $@"Account created with the following credentials:
 	Name: {account.Name}
-	Card Number: {account.CardNumber}
+	Account Number: {account.AccountNumber}
 ");
         }
 
@@ -62,13 +62,13 @@ public abstract class Program
 
     private static Account Login(AccountManager accountManager)
     {
-        var account = accountManager.Login(ReadCardNumber(), ReadPin());
+        var account = accountManager.Login(ReadAccountNumber(), ReadPin());
         if (account == null) throw new Exception("Failed to log-in using the provided credentials.");
 
         Console.WriteLine(
             $@"Successfully logged into the account with the following credentials:
 	Name: {account.Name}
-	Card Number: {account.CardNumber}
+	Account Number: {account.AccountNumber}
 ");
         return account;
     }
@@ -96,21 +96,21 @@ public abstract class Program
         return name;
     }
 
-    private static int ReadCardNumber()
+    private static int ReadAccountNumber()
     {
-        int cardNum;
+        int accountNum;
         while (true)
         {
-            Console.Write($"Enter your {CardNumLength} digit card number: ");
+            Console.Write($"Enter your {AccountNumLength} digit account number: ");
             var input = Console.ReadLine();
             try
             {
-                if (string.IsNullOrEmpty(input)) throw new Exception("Card number was empty or null.");
+                if (string.IsNullOrEmpty(input)) throw new Exception("Account number was empty or null.");
 
-                if (input.Length != CardNumLength)
-                    throw new Exception($"Card number was not {CardNumLength} digits long.");
+                if (input.Length != AccountNumLength)
+                    throw new Exception($"Account number was not {AccountNumLength} digits long.");
 
-                cardNum = Parse(input);
+                accountNum = Parse(input);
             }
             catch (Exception e)
             {
@@ -121,7 +121,7 @@ public abstract class Program
             break;
         }
 
-        return cardNum;
+        return accountNum;
     }
 
     private static int ReadPin()

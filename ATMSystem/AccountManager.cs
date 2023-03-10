@@ -11,9 +11,9 @@ public class AccountManager
         _repo = repo;
     }
 
-    internal Account? Login(int cardNumber, int pin)
+    internal Account? Login(int accountNumber, int pin)
     {
-        var account = _repo.Get(cardNumber);
+        var account = _repo.Get(accountNumber);
         if (account == null || account.Pin != pin)
             return null;
         return account;

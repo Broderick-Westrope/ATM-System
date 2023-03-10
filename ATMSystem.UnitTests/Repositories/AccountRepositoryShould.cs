@@ -29,7 +29,7 @@ public class AccountRepositoryShould
         var repository = new AccountRepository(accounts);
 
         // Act
-        var result = repository.Get(targetAccount.CardNumber);
+        var result = repository.Get(targetAccount.AccountNumber);
 
         // Assert
         result.Should().NotBeNull();
