@@ -33,10 +33,23 @@ public abstract class Program
         else
         {
             account = createAccountHandler.Handle(new CreateAccount(ReadName(), ReadPin()));
-            Console.WriteLine($"Account created with the following credentials:\n\tName: {account.Name}\n\tCard Number: {account.CardNumber}\n");
+            Console.WriteLine(
+                $@"Account created with the following credentials:
+	Name: {account.Name}
+	Card Number: {account.CardNumber}
+");
         }
-        
-        Console.WriteLine("Would you like to:\n\t[C]hange Pin\n\t[W]ithdraw\n\t[D]eposit\n\t[V]iew Balance\n\t[T]ransfer\n\t[L]og Out\n\t[Q]uit\n");
+
+        Console.WriteLine(
+            @"Would you like to:
+	[C]hange Pin
+	[W]ithdraw
+	[D]eposit
+	[V]iew Balance
+	[T]ransfer
+	[L]og Out
+	[Q]uit
+");
         input = Console.ReadLine();
         if (input is "C" or "c")
         {
